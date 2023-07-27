@@ -13,27 +13,30 @@ class Comment {
     return this.dataAccessObject.run(sql);
   }
 
+  deleteComment(id) {
+    return this.dataAccessObject.run("DELETE FROM comments WHERE id = ?", [id]);
+  }
+
   deleteComments() {
-    const sql = 'DELETE FROM comments';
+    const sql = "DELETE FROM comments";
     return this.dataAccessObject.run(sql);
   }
 
   createComment({ name, message }) {
     return this.dataAccessObject.run(
-      'INSERT INTO comments (name, message) VALUES (?, ?)',
+      "INSERT INTO comments (name, message) VALUES (?, ?)",
       [name, message]
     );
   }
 
   getComment(id) {
-    return this.dataAccessObject.get(
-      'SELECT * FROM comments WHERE id = ?',
-      [id]
-    );
+    return this.dataAccessObject.get("SELECT * FROM comments WHERE id = ?", [
+      id,
+    ]);
   }
 
   getComments() {
-    return this.dataAccessObject.all('SELECT * FROM comments');
+    return this.dataAccessObject.all("SELECT * FROM comments");
   }
 }
 
