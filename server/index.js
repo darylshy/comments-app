@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const DataAccessObject = require("./dataAccessObject");
 const Comment = require("./comment");
@@ -7,8 +8,29 @@ const Comment = require("./comment");
 const app = express();
 const port = process.env.PORT || 3001;
 
+const { Configuration, OpenAIApi } = require("openai");
+
+const config = new Configuration({
+  apiKey: "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",
+});
+
+const openai = new OpenAIApi(config);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+
+app.post("/generateHotTake", async (_, res) => {
+  const prompt = "generate a random hot take.";
+  const completion = await openai.createCompletion({
+    model: "text-davinci-003",
+    max_tokens: 512,
+    temperature: 0,
+    prompt,
+  });
+
+  res.send(completion.data.choices[0].text);
+});
 
 const dataAccessObject = new DataAccessObject("./database.sqlite3");
 const comment = new Comment(dataAccessObject);

@@ -1,41 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import "the-new-css-reset/css/reset.css";
+import "./App.css";
+import { MenuBar } from "./components/molecules/menu-bar/MenuBar";
 import { useCommentManager } from "./hooks/use-comment-manager";
 
 function App() {
-  const {
-    createComment,
-    fetchCommentById,
-    fetchAllComments,
-    deleteCommentById,
-    deleteAllComments,
-    cleanup,
-  } = useCommentManager();
+  const { cleanup, generateHotTake } = useCommentManager();
+  const [hotTake, setHotTake] = useState("");
 
   useEffect(() => {
-    fetchCommentById(2);
-    fetchAllComments();
-    deleteAllComments();
     (async () => {
-      const response = await createComment({
-        name: "Henry",
-        id: 10,
-        created: new Date(),
-        message: "This Bud's for you!",
-      });
-      deleteCommentById(response?.data.id);
+      const _hotTake = await generateHotTake();
+      setHotTake(_hotTake?.data);
     })();
-
     return cleanup;
-  }, [
-    cleanup,
-    createComment,
-    deleteAllComments,
-    deleteCommentById,
-    fetchAllComments,
-    fetchCommentById,
-  ]);
+  }, [cleanup, generateHotTake]);
 
-  return <div className="App">Hello World</div>;
+  return (
+    <div className="App">
+      <MenuBar hotTake={hotTake} />
+    </div>
+  );
 }
 
 export default App;

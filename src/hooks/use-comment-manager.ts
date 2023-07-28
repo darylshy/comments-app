@@ -92,6 +92,21 @@ export function useCommentManager() {
     }
   }, [source.token]);
 
+  const generateHotTake = useCallback(async () => {
+    try {
+      const response = await axios.post("/generateHotTake", {
+        cancelToken: source.token,
+      });
+      return response;
+    } catch (error) {
+      catchError({
+        error,
+        cancelMessage: CatchError.Canceled,
+        crudMessage: CatchError.NoneFetched,
+      });
+    }
+  }, [source.token]);
+
   const deleteAllComments = useCallback(async () => {
     try {
       const response = await axios.delete("/deleteComments", {
@@ -118,5 +133,6 @@ export function useCommentManager() {
     deleteCommentById,
     fetchAllComments,
     fetchCommentById,
+    generateHotTake,
   };
 }
