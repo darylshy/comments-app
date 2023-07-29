@@ -28,7 +28,9 @@ export const StyledBodyText = styled.p`
   color: #787889;
   text-align: center;
   padding: 30px;
-  max-width: 50%;
+  min-width: 50%;
+  display: flex;
+  align-items: center;
 `;
 
 export const StyledMetaText = styled.span`
@@ -36,6 +38,5 @@ export const StyledMetaText = styled.span`
   font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
   // separate this part out. putting here for development purposes only!
-  text-align: right;
   color: #787889;
 `;

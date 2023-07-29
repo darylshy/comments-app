@@ -9,9 +9,24 @@ export const StyledMenuBarContainer = styled.div`
 
 export const StyledMenuBarContentLeft = styled.div`
   display: flex;
+  // flex: 1;
   flex-direction: column;
   margin-left: -20px;
+  margin-right: 20px;
   justify-content: center;
+`;
+
+export const StyledMenuBarContentRight = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+`;
+
+export const StyledMenuBarContentMiddle = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const VerticalDivider = styled.div`

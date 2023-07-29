@@ -1,20 +1,26 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import "the-new-css-reset/css/reset.css";
 import "./App.css";
 import { MenuBar } from "./components/molecules/menu-bar/MenuBar";
 import { useCommentManager } from "./hooks/use-comment-manager";
 
 function App() {
-  const { cleanup, generateHotTake } = useCommentManager();
+  const { generateHotTake } = useCommentManager();
   const [hotTake, setHotTake] = useState("");
+  const [initialFetched, setInitialFetched] = useState(false);
 
+  const fetchHotTake = useCallback(async () => {
+    const _hotTake = await generateHotTake();
+    setHotTake(_hotTake?.data);
+  }, [generateHotTake]);
+
+  // Fetch the initial hot take on page load
   useEffect(() => {
-    (async () => {
-      const _hotTake = await generateHotTake();
-      setHotTake(_hotTake?.data);
-    })();
-    return cleanup;
-  }, [cleanup, generateHotTake]);
+    if (!initialFetched) {
+      fetchHotTake();
+      setInitialFetched(true);
+    }
+  }, [fetchHotTake, initialFetched]);
 
   return (
     <div className="App">
