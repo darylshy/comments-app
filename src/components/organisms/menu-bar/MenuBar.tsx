@@ -1,4 +1,4 @@
-import { FC, useCallback } from "react";
+import { FC, useCallback, useState } from "react";
 import {
   StyledBodyText,
   StyledMenuBarLogoText,
@@ -13,9 +13,9 @@ import {
   VerticalDivider,
 } from "./MenuBar.styles";
 import { IMenuBar } from "./menu-bar.types";
+import { Spinner } from "../../atoms/spinner/Spinner";
 
 /**
- * TODO: React Suspense for loading hot take. Show message saying 'fetching new hot take...'
  * TODO: Show error message when hot take cannot be fetched [React Error Boundary? vs Axios Error Catching?]
  * TODO: Change refresh icon color on hover
  * TODO: Move image to a component instead of hard coding it into the menu bar
@@ -23,8 +23,12 @@ import { IMenuBar } from "./menu-bar.types";
  */
 
 export const MenuBar: FC<IMenuBar> = ({ hotTake, refreshHotTake }) => {
-  const handleClick = useCallback(() => {
-    refreshHotTake();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleClick = useCallback(async () => {
+    setIsLoading(true);
+    await refreshHotTake();
+    setIsLoading(false);
   }, [refreshHotTake]);
 
   return (
@@ -55,7 +59,7 @@ export const MenuBar: FC<IMenuBar> = ({ hotTake, refreshHotTake }) => {
       </StyledMenuBarContentMiddle>
       <VerticalDivider />
       <StyledMenuBarContentRight>
-        <StyledBodyText>{hotTake}</StyledBodyText>
+        {isLoading ? <Spinner /> : <StyledBodyText>{hotTake}</StyledBodyText>}
       </StyledMenuBarContentRight>
     </StyledMenuBarContainer>
   );

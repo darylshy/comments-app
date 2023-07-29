@@ -28,7 +28,6 @@ export const StyledBodyText = styled.p`
   color: #787889;
   text-align: center;
   padding: 30px;
-  min-width: 50%;
   display: flex;
   align-items: center;
 `;

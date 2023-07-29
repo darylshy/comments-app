@@ -3,7 +3,6 @@ import "the-new-css-reset/css/reset.css";
 import "./App.css";
 import { MenuBar } from "./components/organisms";
 import { useHotTakeGenerator } from "./hooks/use-hot-take-generator";
-
 function App() {
   const { generateHotTake } = useHotTakeGenerator();
   const [hotTake, setHotTake] = useState("");
