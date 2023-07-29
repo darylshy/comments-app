@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "the-new-css-reset/css/reset.css";
 import "./App.css";
-import { MenuBar } from "./components/molecules/menu-bar/MenuBar";
-import { useCommentManager } from "./hooks/use-comment-manager";
+import { MenuBar } from "./components/organisms";
+import { useHotTakeGenerator } from "./hooks/use-hot-take-generator";
 
 function App() {
-  const { generateHotTake } = useCommentManager();
+  const { generateHotTake } = useHotTakeGenerator();
   const [hotTake, setHotTake] = useState("");
   const [initialFetched, setInitialFetched] = useState(false);
 
@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div className="App">
-      <MenuBar hotTake={hotTake} />
+      <MenuBar hotTake={hotTake} refreshHotTake={fetchHotTake} />
     </div>
   );
 }

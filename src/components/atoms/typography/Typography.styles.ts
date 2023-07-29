@@ -24,7 +24,7 @@ export const StyledBodyText = styled.p`
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
-  // separate this part out. putting here for development purposes only!
+  // TODO: separate this part out. putting here for development purposes only!
   color: #787889;
   text-align: center;
   padding: 30px;
@@ -37,6 +37,6 @@ export const StyledMetaText = styled.span`
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
   font-family: "Poppins", sans-serif;
   font-size: 0.75rem;
-  // separate this part out. putting here for development purposes only!
+  // TODO: separate this part out. putting here for development purposes only!
   color: #787889;
 `;

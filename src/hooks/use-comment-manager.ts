@@ -1,25 +1,12 @@
 import axios from "axios";
 import { useCallback } from "react";
-import {
-  CatchError,
-  ICatchError,
-  IComment,
-} from "./use-comments-manager.types";
+import { CatchError, IComment } from "./use-comments-manager.types";
+import { useFetchHelpers } from "./use-fetch-helpers";
 
 export function useCommentManager() {
   const source = axios.CancelToken.source();
-  const catchError = <T extends CatchError>({
-    error,
-    cancelMessage,
-    crudMessage,
-  }: ICatchError<T>) => {
-    if (axios.isCancel(error)) {
-      console.log(cancelMessage);
-    } else {
-      console.error(crudMessage, error);
-    }
-  };
-
+  const { catchError } = useFetchHelpers();
+  
   const createComment = useCallback(
     async (comment: IComment) => {
       try {
@@ -36,7 +23,7 @@ export function useCommentManager() {
         });
       }
     },
-    [source.token]
+    [catchError, source.token]
   );
 
   const fetchCommentById = useCallback(
@@ -55,7 +42,7 @@ export function useCommentManager() {
         });
       }
     },
-    [source.token]
+    [catchError, source.token]
   );
 
   const deleteCommentById = useCallback(
@@ -74,7 +61,7 @@ export function useCommentManager() {
         });
       }
     },
-    [source.token]
+    [catchError, source.token]
   );
 
   const fetchAllComments = useCallback(async () => {
@@ -90,22 +77,7 @@ export function useCommentManager() {
         crudMessage: CatchError.NoneFetched,
       });
     }
-  }, [source.token]);
-
-  const generateHotTake = useCallback(async () => {
-    try {
-      const response = await axios.post("/generateHotTake", {
-        cancelToken: source.token,
-      });
-      return response;
-    } catch (error) {
-      catchError({
-        error,
-        cancelMessage: CatchError.Canceled,
-        crudMessage: CatchError.NoneFetched,
-      });
-    }
-  }, [source.token]);
+  }, [catchError, source.token]);
 
   const deleteAllComments = useCallback(async () => {
     try {
@@ -120,19 +92,13 @@ export function useCommentManager() {
         crudMessage: CatchError.NoneDeleted,
       });
     }
-  }, [source.token]);
-
-  const cleanup = useCallback(() => {
-    source.cancel();
-  }, [source]);
+  }, [catchError, source.token]);
 
   return {
-    cleanup,
     createComment,
     deleteAllComments,
     deleteCommentById,
     fetchAllComments,
     fetchCommentById,
-    generateHotTake,
   };
 }

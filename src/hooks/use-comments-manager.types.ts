@@ -2,6 +2,7 @@ export enum CatchError {
   Canceled = "request canceled",
   NotCreated = "error creating comment",
   NotFetched = "error fetching comment",
+  NotFetchedHotTake = "error fetching hot take",
   NotDeleted = "error deleting comment",
   NoneFetched = "error fetching comments",
   NoneDeleted = "error deleting comments",
