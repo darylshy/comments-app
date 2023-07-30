@@ -1,10 +1,11 @@
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback } from "react";
 import {
+  Spinner,
   StyledBodyText,
   StyledMenuBarLogoText,
   StyledMetaText,
 } from "../../atoms";
-import { StyledButtonTransparent } from "../../atoms/buttons/Buttons.styles";
+import { IconButton } from "../../molecules";
 import {
   StyledMenuBarContainer,
   StyledMenuBarContentLeft,
@@ -13,7 +14,6 @@ import {
   VerticalDivider,
 } from "./MenuBar.styles";
 import { IMenuBar } from "./menu-bar.types";
-import { Spinner } from "../../atoms/spinner/Spinner";
 
 /**
  * TODO: Show error message when hot take cannot be fetched [React Error Boundary? vs Axios Error Catching?]
@@ -22,13 +22,13 @@ import { Spinner } from "../../atoms/spinner/Spinner";
  *
  */
 
-export const MenuBar: FC<IMenuBar> = ({ hotTake, refreshHotTake }) => {
-  const [isLoading, setIsLoading] = useState(false);
-
+export const MenuBar: FC<IMenuBar> = ({
+  hotTake,
+  isLoading,
+  refreshHotTake,
+}) => {
   const handleClick = useCallback(async () => {
-    setIsLoading(true);
     await refreshHotTake();
-    setIsLoading(false);
   }, [refreshHotTake]);
 
   return (
@@ -47,15 +47,13 @@ export const MenuBar: FC<IMenuBar> = ({ hotTake, refreshHotTake }) => {
       </StyledMenuBarContentLeft>
       <VerticalDivider />
       <StyledMenuBarContentMiddle>
-        <StyledButtonTransparent onClick={handleClick}>
-          <img
-            src={process.env.PUBLIC_URL + "/assets/generate-hot-take.svg"}
-            alt="generate new hot take icon"
-            width="36px"
-            height="36px"
-          />
-          <StyledMetaText>Refresh Hot Take</StyledMetaText>
-        </StyledButtonTransparent>
+        <IconButton
+          onClick={handleClick}
+          iconSrc={`${process.env.PUBLIC_URL}/assets/generate-hot-take.svg`}
+          iconAlt="refresh hot take icon"
+        >
+          Refresh Hot Take
+        </IconButton>
       </StyledMenuBarContentMiddle>
       <VerticalDivider />
       <StyledMenuBarContentRight>
