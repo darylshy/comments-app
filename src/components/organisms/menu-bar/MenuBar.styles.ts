@@ -20,5 +20,6 @@ export const StyledMenuBarContentRight = styled.div`
 `;
 
 export const StyledMenuBarContentMiddle = styled.div`
-  ${({ theme }) => themeExtractor(theme.stackVerticalDeadCenter)}
+  display: flex;
+  align-items: center;
 `;

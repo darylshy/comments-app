@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
+import { Button } from "../../atoms/buttons/Button";
 import { themeExtractor } from "../../../App.theme";
-import { Button } from "./Button";
 
 export const StyledRefreshHotTakeButton = styled(Button)`
   ${({ theme }) => themeExtractor(theme.stackVerticalCenter)}

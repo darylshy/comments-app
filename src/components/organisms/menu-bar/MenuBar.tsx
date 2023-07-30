@@ -1,9 +1,10 @@
-import { FC, useCallback } from "react";
+import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
+import { useHotTakeGenerator } from "../../../hooks/use-hot-take-generator";
 import {
-  HotTakeBodyText,
   StyledDivider,
+  StyledHTBodyText,
   StyledMenuBarLogoText,
-  StyledMetaText,
+  StyledMetaTextGrey,
   StyledSiteLogoImage,
   StyledSpinner,
 } from "../../atoms";
@@ -14,7 +15,6 @@ import {
   StyledMenuBarContentMiddle,
   StyledMenuBarContentRight,
 } from "./MenuBar.styles";
-import { IMenuBar } from "./menu-bar.types";
 
 /**
  * TODO: Show error message when hot take cannot be fetched [React Error Boundary? vs Axios Error Catching?]
@@ -23,14 +23,27 @@ import { IMenuBar } from "./menu-bar.types";
  *
  */
 
-export const MenuBar: FC<IMenuBar> = ({
-  hotTake,
-  isLoading,
-  refreshHotTake,
-}) => {
-  const handleClick = useCallback(async () => {
-    await refreshHotTake();
-  }, [refreshHotTake]);
+export const MenuBar: FC<PropsWithChildren> = () => {
+  const { generateHotTake } = useHotTakeGenerator();
+  const [hotTake, setHotTake] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(true);
+
+  const fetchHotTake = useCallback(async () => {
+    setIsLoading(true);
+    const _hotTake = await generateHotTake();
+    setHotTake(_hotTake?.data);
+    setIsLoading(false);
+    if (initialLoad) {
+      setInitialLoad(false);
+    }
+  }, [generateHotTake, initialLoad]);
+
+  useEffect(() => {
+    if (initialLoad) {
+      fetchHotTake();
+    }
+  }, [fetchHotTake, initialLoad]);
 
   return (
     <StyledMenuBarContainer>
@@ -42,25 +55,25 @@ export const MenuBar: FC<IMenuBar> = ({
       />
       <StyledMenuBarContentLeft>
         <StyledMenuBarLogoText>Hot Takes</StyledMenuBarLogoText>
-        <StyledMetaText>
+        <StyledMetaTextGrey>
           AI Generated Hot Takes, powered by OpenAI&copy;
-        </StyledMetaText>
+        </StyledMetaTextGrey>
       </StyledMenuBarContentLeft>
       <StyledDivider
         $direction="vertical"
-        $thickness={1}
+        $thickness={2}
         $length={90}
         $spacing={{
-          left: 139,
+          left: 138,
           right: 15,
         }}
       />
       <StyledMenuBarContentMiddle>
-        <IconButton onClick={handleClick}>Refresh Hot Take</IconButton>
+        <IconButton onClick={fetchHotTake}>Refresh Hot Take</IconButton>
       </StyledMenuBarContentMiddle>
       <StyledDivider
         $direction="vertical"
-        $thickness={1}
+        $thickness={2}
         $length={90}
         $spacing={{
           left: 15,
@@ -71,7 +84,7 @@ export const MenuBar: FC<IMenuBar> = ({
         {isLoading ? (
           <StyledSpinner />
         ) : (
-          <HotTakeBodyText>{hotTake}</HotTakeBodyText>
+          <StyledHTBodyText>{hotTake}</StyledHTBodyText>
         )}
       </StyledMenuBarContentRight>
     </StyledMenuBarContainer>

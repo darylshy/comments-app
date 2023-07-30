@@ -12,6 +12,7 @@ const appTheme = {
   },
   colors: {
     flameLight: "#fdb026",
+    flameMedium: "#d37c20",
     flameDark: "#fe421b",
     whiteLight: "#fff",
     whiteDark: "#f3f2ef",
