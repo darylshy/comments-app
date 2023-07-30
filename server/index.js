@@ -25,7 +25,7 @@ app.post("/generateHotTake", async (_, res) => {
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
     max_tokens: 512,
-    temperature: 0.7,
+    temperature: 1,
     prompt,
   });
 

@@ -1,16 +1,14 @@
-import { StyledButtonTransparent, StyledMetaText } from "../../atoms";
-import { StyledIconSVG } from "./IconSVG.styles";
+import {
+  RefreshHotTakeIcon,
+  StyledButtonTransparent,
+  StyledMetaText,
+} from "../../atoms";
 import { IIConButton } from "./icon-button.types";
 
-export const IconButton = ({
-  onClick,
-  iconAlt,
-  iconSrc,
-  children,
-}: IIConButton) => {
+export const IconButton = ({ onClick, children }: IIConButton) => {
   return (
     <StyledButtonTransparent onClick={onClick}>
-      <StyledIconSVG src={iconSrc} alt={iconAlt} />
+      <RefreshHotTakeIcon />
       <StyledMetaText>{children}</StyledMetaText>
     </StyledButtonTransparent>
   );

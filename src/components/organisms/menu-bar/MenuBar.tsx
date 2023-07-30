@@ -1,5 +1,6 @@
 import { FC, useCallback } from "react";
 import {
+  SiteLogoImage,
   Spinner,
   StyledBodyText,
   StyledMenuBarLogoText,
@@ -17,7 +18,7 @@ import { IMenuBar } from "./menu-bar.types";
 
 /**
  * TODO: Show error message when hot take cannot be fetched [React Error Boundary? vs Axios Error Catching?]
- * TODO: Change refresh icon color on hover
+ * TODO: Make Menubar sticky
  * TODO: Move image to a component instead of hard coding it into the menu bar
  *
  */
@@ -33,7 +34,7 @@ export const MenuBar: FC<IMenuBar> = ({
 
   return (
     <StyledMenuBarContainer>
-      <img
+      <SiteLogoImage
         src={process.env.PUBLIC_URL + "/assets/site-logo-100x100.png"}
         alt="site logo"
         height={100}
@@ -47,13 +48,7 @@ export const MenuBar: FC<IMenuBar> = ({
       </StyledMenuBarContentLeft>
       <VerticalDivider />
       <StyledMenuBarContentMiddle>
-        <IconButton
-          onClick={handleClick}
-          iconSrc={`${process.env.PUBLIC_URL}/assets/generate-hot-take.svg`}
-          iconAlt="refresh hot take icon"
-        >
-          Refresh Hot Take
-        </IconButton>
+        <IconButton onClick={handleClick}>Refresh Hot Take</IconButton>
       </StyledMenuBarContentMiddle>
       <VerticalDivider />
       <StyledMenuBarContentRight>

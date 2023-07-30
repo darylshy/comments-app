@@ -33,6 +33,20 @@ function App() {
         refreshHotTake={fetchHotTake}
         isLoading={isLoading}
       />
+      <div style={{ display: "flex" }}>
+        <div
+          style={{
+            height: "100vh",
+            width: "488.938px",
+            background: "transparent",
+            borderRight: "1px solid #d2d2d2",
+          }}
+        >
+          <label htmlFor="name">Name (4 to 8 characters):</label>
+          <input type="text" id="name" name="name"></input>
+        </div>
+        <div style={{ flex: 1, background: "transparent" }}></div>
+      </div>
     </div>
   );
 }
