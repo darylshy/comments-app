@@ -1,13 +1,11 @@
 import { styled } from "styled-components";
+import { themeExtractor } from "../../../App.theme";
+import { Button } from "./Button";
 
-//TODO: Make a generic button that uses styled-component for bespoke styles
-export const StyledButtonTransparent = styled.button`
-  display: flex;
-  flex-direction: column;
+export const StyledRefreshHotTakeButton = styled(Button)`
+  ${({ theme }) => themeExtractor(theme.stackVerticalCenter)}
   cursor: pointer;
-  align-items: center;
-  //TODO: Separate this part out. Put here for development purposes only!
   &:hover span {
-    color: #fdb026;
+    color: ${({ theme }) => theme.colors.flameLight};
   }
 `;

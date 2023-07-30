@@ -1,10 +1,11 @@
 import { FC, useCallback } from "react";
 import {
-  SiteLogoImage,
-  Spinner,
-  StyledBodyText,
+  HotTakeBodyText,
+  StyledDivider,
   StyledMenuBarLogoText,
   StyledMetaText,
+  StyledSiteLogoImage,
+  StyledSpinner,
 } from "../../atoms";
 import { IconButton } from "../../molecules";
 import {
@@ -12,7 +13,6 @@ import {
   StyledMenuBarContentLeft,
   StyledMenuBarContentMiddle,
   StyledMenuBarContentRight,
-  VerticalDivider,
 } from "./MenuBar.styles";
 import { IMenuBar } from "./menu-bar.types";
 
@@ -34,7 +34,7 @@ export const MenuBar: FC<IMenuBar> = ({
 
   return (
     <StyledMenuBarContainer>
-      <SiteLogoImage
+      <StyledSiteLogoImage
         src={process.env.PUBLIC_URL + "/assets/site-logo-100x100.png"}
         alt="site logo"
         height={100}
@@ -46,13 +46,33 @@ export const MenuBar: FC<IMenuBar> = ({
           AI Generated Hot Takes, powered by OpenAI&copy;
         </StyledMetaText>
       </StyledMenuBarContentLeft>
-      <VerticalDivider />
+      <StyledDivider
+        $direction="vertical"
+        $thickness={1}
+        $length={90}
+        $spacing={{
+          left: 139,
+          right: 15,
+        }}
+      />
       <StyledMenuBarContentMiddle>
         <IconButton onClick={handleClick}>Refresh Hot Take</IconButton>
       </StyledMenuBarContentMiddle>
-      <VerticalDivider />
+      <StyledDivider
+        $direction="vertical"
+        $thickness={1}
+        $length={90}
+        $spacing={{
+          left: 15,
+          right: 15,
+        }}
+      />
       <StyledMenuBarContentRight>
-        {isLoading ? <Spinner /> : <StyledBodyText>{hotTake}</StyledBodyText>}
+        {isLoading ? (
+          <StyledSpinner />
+        ) : (
+          <HotTakeBodyText>{hotTake}</HotTakeBodyText>
+        )}
       </StyledMenuBarContentRight>
     </StyledMenuBarContainer>
   );
