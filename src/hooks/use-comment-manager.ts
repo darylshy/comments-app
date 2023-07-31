@@ -6,7 +6,7 @@ import { useFetchHelpers } from "./use-fetch-helpers";
 export function useCommentManager() {
   const source = axios.CancelToken.source();
   const { catchError } = useFetchHelpers();
-  
+
   const createComment = useCallback(
     async (comment: IComment) => {
       try {

@@ -16,6 +16,7 @@ import {
   StyledMenuBarContentRight,
 } from "./MenuBar.styles";
 import { RefreshHotTakeIcon } from "../../atoms/icons/RefreshHotTakeIcon";
+import { useCommentManager } from "../../../hooks/use-comment-manager";
 
 /**
  * TODO: Show error message when hot take cannot be fetched [React Error Boundary? vs Axios Error Catching?]
@@ -26,11 +27,14 @@ import { RefreshHotTakeIcon } from "../../atoms/icons/RefreshHotTakeIcon";
 
 export const MenuBar: FC<PropsWithChildren> = () => {
   const { generateHotTake } = useHotTakeGenerator();
+  const { deleteAllComments } = useCommentManager();
   const [hotTake, setHotTake] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [initialLoad, setInitialLoad] = useState(true);
 
   const fetchHotTake = useCallback(async () => {
+    //clear all comments when new hot take is fetched.
+    await deleteAllComments();
     setIsLoading(true);
     const _hotTake = await generateHotTake();
     setHotTake(_hotTake?.data);
@@ -38,7 +42,7 @@ export const MenuBar: FC<PropsWithChildren> = () => {
     if (initialLoad) {
       setInitialLoad(false);
     }
-  }, [generateHotTake, initialLoad]);
+  }, [deleteAllComments, generateHotTake, initialLoad]);
 
   useEffect(() => {
     if (initialLoad) {
