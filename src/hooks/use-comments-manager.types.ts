@@ -3,6 +3,7 @@ export enum CatchError {
   NotCreated = "error creating comment",
   NotFetched = "error fetching comment",
   NotFetchedHotTake = "error fetching hot take",
+  NotSubmitted = "error submitting form",
   NotDeleted = "error deleting comment",
   NoneFetched = "error fetching comments",
   NoneDeleted = "error deleting comments",

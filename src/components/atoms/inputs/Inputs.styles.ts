@@ -9,4 +9,5 @@ export const StyledInput = styled(Input)`
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
   font-family: "Poppins", sans-serif;
   border-radius: 10px;
+  width: 100%;
 `;

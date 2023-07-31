@@ -5,7 +5,7 @@ const appTheme = {
   fontSizes: {
     xs: "0.75rem",
     sm: "1rem",
-    md: "1.5rem",
+    md: "1.35rem",
     lg: "2rem",
     xl: "2.5rem",
     xxl: "3rem",

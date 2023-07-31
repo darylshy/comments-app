@@ -1,4 +1,5 @@
 export interface IIConButton {
+  buttonText?: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   children: React.ReactNode;
 }

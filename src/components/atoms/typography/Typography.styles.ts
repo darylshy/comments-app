@@ -1,27 +1,26 @@
 import { styled } from "styled-components";
 
 //Base Typography Elements ==================================>
-export const StyledHeaderText = styled.h1`
+export const StyledTextLg = styled.h1`
   @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: font-size: ${({ theme }) => theme.fontSizes.lg};
 `;
 
-export const StyledLabelText = styled.label`
+export const StyledTextMd = styled.label`
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
   font-family: "Poppins", sans-serif;
   font-size: ${({ theme }) => theme.fontSizes.md};
-  font-weight: bold;
 `;
 
-export const StyledBodyText = styled.p`
+export const StyledTextSm = styled.p`
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
   font-family: "Poppins", sans-serif;
   font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
-export const StyledMetaText = styled.span`
+export const StyledTextXs = styled.span`
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
   font-family: "Poppins", sans-serif;
   font-size: ${({ theme }) => theme.fontSizes.xs};
@@ -35,7 +34,7 @@ export const StyledMenuBarLogoText = styled.div`
   margin-bottom: 4px;
 `;
 
-export const StyledHTBodyText = styled(StyledBodyText)`
+export const StyledHTBodyText = styled(StyledTextSm)`
   color: ${({ theme }) => theme.colors.greyDark};
   text-align: center;
   padding: 30px;
@@ -43,6 +42,10 @@ export const StyledHTBodyText = styled(StyledBodyText)`
   align-items: center;
 `;
 
-export const StyledMetaTextGrey = styled(StyledMetaText)`
+export const StyledMetaTextGrey = styled(StyledTextXs)`
+  color: ${({ theme }) => theme.colors.greyDark};
+`;
+
+export const StyledLabelTextGrey = styled(StyledTextMd)`
   color: ${({ theme }) => theme.colors.greyDark};
 `;

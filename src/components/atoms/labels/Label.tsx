@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from "react";
-import { StyledBodyText } from "../typography/Typography.styles";
+import { StyledTextSm } from "../typography/Typography.styles";
 import { ILabels } from "./labels.types";
 
 export const Label: FC<PropsWithChildren<ILabels>> = ({
@@ -9,7 +9,7 @@ export const Label: FC<PropsWithChildren<ILabels>> = ({
 }) => {
   return (
     <label htmlFor={htmlFor} {...rest}>
-      <StyledBodyText>{labelText}</StyledBodyText>
+      <StyledTextSm>{labelText}</StyledTextSm>
     </label>
   );
 };

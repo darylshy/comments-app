@@ -15,6 +15,7 @@ import {
   StyledMenuBarContentMiddle,
   StyledMenuBarContentRight,
 } from "./MenuBar.styles";
+import { RefreshHotTakeIcon } from "../../atoms/icons/RefreshHotTakeIcon";
 
 /**
  * TODO: Show error message when hot take cannot be fetched [React Error Boundary? vs Axios Error Catching?]
@@ -69,7 +70,9 @@ export const MenuBar: FC<PropsWithChildren> = () => {
         }}
       />
       <StyledMenuBarContentMiddle>
-        <IconButton onClick={fetchHotTake}>Refresh Hot Take</IconButton>
+        <IconButton onClick={fetchHotTake} buttonText="Refresh Hot Take">
+          <RefreshHotTakeIcon />
+        </IconButton>
       </StyledMenuBarContentMiddle>
       <StyledDivider
         $direction="vertical"

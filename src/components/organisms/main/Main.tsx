@@ -1,38 +1,31 @@
-import { FC } from "react";
-import { StyledLabel } from "../../atoms";
-import { CommentButton } from "../../molecules/comment-button/CommentButton";
+import { FC, useEffect, useState } from "react";
+import { useCommentManager } from "../../../hooks/use-comment-manager";
+import { Comment } from "../comment/Comment";
+import { IComment } from "../comment/comment.types";
+import { StyledCommentForm } from "../form/CommentForm.styles";
 import {
   StyledMainContainer,
   StyledMainLeft,
   StyledMainRight,
 } from "./Main.styles";
-import { StyledInput } from "../../atoms/inputs/Inputs.styles";
-import { StyledTextArea } from "../../atoms/text-areas/TextAreas.styles";
-
 export const Main: FC = (props) => {
+  const [comments, setComments] = useState<IComment[]>([]);
+  const { fetchAllComments } = useCommentManager();
+  useEffect(() => {
+    fetchAllComments().then((res) => {
+      setComments(res?.data);
+    });
+  }, [fetchAllComments]);
   return (
     <StyledMainContainer>
       <StyledMainLeft>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <StyledLabel htmlFor="name" labelText="Name:" />
-          <StyledInput
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Enter your name"
-          />
-          <StyledLabel htmlFor="name" labelText="Comment:" />
-          <StyledTextArea
-            id="story"
-            name="story"
-            rows={5}
-            cols={33}
-            placeholder="Write something here"
-          />
-          <CommentButton />
-        </div>
+        <StyledCommentForm action="/createComment" />
       </StyledMainLeft>
-      <StyledMainRight></StyledMainRight>
+      <StyledMainRight>
+        {comments.map((comment) => {
+          return <Comment key={comment.id} {...comment} />;
+        })}
+      </StyledMainRight>
     </StyledMainContainer>
   );
 };
